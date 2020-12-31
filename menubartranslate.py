@@ -38,8 +38,6 @@ class Translate_App(object):
         if current_clipboard != self.old_clipboard:
             self.app.title = self.translate_text(self, text=current_clipboard)
             self.old_clipboard = current_clipboard
-            print('it contacted google')
-
     def translate_text(self, sender, text):
         # this one is slightly different for menu bar so it doesn't have the \n, maybe find a way to consolidate this
         input_source_lang = translator.detect(text)
