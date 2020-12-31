@@ -25,6 +25,7 @@ class Translate_App(object):
         self.clipboard_off_menu_button = rumps.MenuItem(title="Clipboard Translate Off", callback=self.clipboard_off_callback)
         self.clipboard_timer = rumps.Timer(self.on_tick, 2)
         self.app.menu = [self.translate_menu_button, self.clipboard_on_menu_button, self.clipboard_off_menu_button]
+        self.old_clipboard = ''
     def run(self):
         self.app.run()
     def clipboard_on_callback(self, sender):
@@ -34,7 +35,10 @@ class Translate_App(object):
 
     def on_tick(self, sender):
         current_clipboard = str(clipboard.paste())
-        self.app.title = self.translate_text(self, text=current_clipboard)
+        if current_clipboard != self.old_clipboard:
+            self.app.title = self.translate_text(self, text=current_clipboard)
+            self.old_clipboard = current_clipboard
+            print('it contacted google')
 
     def translate_text(self, sender, text):
         # this one is slightly different for menu bar so it doesn't have the \n, maybe find a way to consolidate this
