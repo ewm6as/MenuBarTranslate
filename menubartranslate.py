@@ -45,6 +45,8 @@ class Translate_App(object):
             #print("it's doing the if statement")
             translation_en = translator.translate(text, lang_tgt="en", lang_src="ar")
             translation_es = translator.translate(text, lang_tgt="es", lang_src="ar")
+            if type(translation_es) == list:
+                translation_es = translation_es[0]
             translation_message = translation_en + " " + translation_es
         elif (input_source_lang[0]) == "es" or input_source_lang[0] == "fr":
             #print("it's doing the elif statement")
@@ -54,6 +56,8 @@ class Translate_App(object):
         else:
             #print("it's doing the else statement")
             translation_es = translator.translate(text, lang_tgt="es", lang_src="en")
+            if type(translation_es) == list:
+                translation_es = translation_es[0]
             translation_ar = translator.translate(text, lang_tgt="ar", lang_src="en")
             translation_message = translation_es + " " + translation_ar
         return translation_message
@@ -67,6 +71,8 @@ class Translate_App(object):
             #print("it's doing the if statement")
             translation_en = translator.translate(self.request, lang_tgt="en", lang_src="ar")
             translation_es = translator.translate(self.request, lang_tgt="es", lang_src="ar")
+            if type(translation_es) == list:
+                translation_es = translation_es[0]
             translation_message = self.request + "\n" + translation_en + "\n" + translation_es
         elif (input_source_lang[0]) == "es" or input_source_lang[0] == "fr":
             #print("it's doing the elif statement")
@@ -76,7 +82,7 @@ class Translate_App(object):
         else:
             #print("it's doing the else statement")
             translation_es = translator.translate(self.request, lang_tgt="es", lang_src="en")
-            if type(translation_es) == list:
+            if type(translation_es) == list: #a fix for Spanish words being returned as a list if gendered.
                 translation_es = translation_es[0]
             translation_ar = translator.translate(self.request, lang_tgt="ar", lang_src="en")
             translation_message = self.request + "\n" + translation_es + "\n" + translation_ar
