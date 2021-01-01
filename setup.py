@@ -6,7 +6,7 @@ OPTIONS = {
     'argv_emulation': True,
     'iconfile': 'icon.icns',
     'plist': {
-        'CFBundleShortVersionString': '0.2',
+        'CFBundleShortVersionString': '0.21',
         'LSUIElement': True,
     },
     'packages': ['rumps'],
