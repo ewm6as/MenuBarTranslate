@@ -4,15 +4,13 @@ from google_trans_new import google_translator
 """
 To do:
 * Revise languages to include a list of all MESA/Romance languages
-* Have it display from my clipboard in the top menu bar
-* Maybe have a mac shortcut too?
 """
 translator = google_translator()
 class Translate_App(object):
     def __init__(self):
         self.config = {
             "app_name": "Translate",
-            "title": "كلب",
+            "title": "ب",
             "interval": 1500
         }
 
@@ -32,6 +30,8 @@ class Translate_App(object):
         self.clipboard_timer.start()
     def clipboard_off_callback(self, sender):
         self.clipboard_timer.stop()
+        self.app.title = "ب"
+
 
     def on_tick(self, sender):
         current_clipboard = str(clipboard.paste())
