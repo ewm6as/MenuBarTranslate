@@ -16,14 +16,14 @@ class TranslateApp(object):
             "interval": 1500
         }
 
-        self.interval = self.config["interval"]
+        #self.interval = self.config["interval"]
         self.app = rumps.App(self.config["app_name"], self.config["title"])
         self.text_window = rumps.Window(default_text="", ok='Translate')
         self.text_window.icon = "icon.icns"
         self.translate_menu_button = rumps.MenuItem(title="Translate", callback=self.text_callback)
         self.clipboard_on_menu_button = rumps.MenuItem(title="Clipboard Translate On", callback=self.clipboard_on_callback)
         self.clipboard_off_menu_button = rumps.MenuItem(title="Clipboard Translate Off", callback=self.clipboard_off_callback)
-        self.clipboard_timer = rumps.Timer(self.on_tick, 2)
+        self.clipboard_timer = rumps.Timer(self.on_tick, 0.5)
         self.app.menu = [self.translate_menu_button, self.clipboard_on_menu_button, self.clipboard_off_menu_button]
         self.old_clipboard = ''
 
