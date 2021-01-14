@@ -27,7 +27,7 @@ class TranslateApp(object):
         self.app.menu = [self.translate_menu_button, self.clipboard_on_menu_button, self.clipboard_off_menu_button]
         self.old_clipboard = ''
         self.arabic_alphabet_langs = ['ar', 'fa', 'ps', 'ku', 'ur', 'sd', 'pa', 'so', 'ug', 'kk']
-
+        self.spanish_langs = ['es', 'eu', 'ca', 'pt']
     def run(self):
         self.app.run()
 
@@ -54,7 +54,7 @@ class TranslateApp(object):
             if type(translation_es) == list:
                 translation_es = translation_es[0]
             translation_message = translation_en + " " + translation_es
-        elif (input_source_lang[0]) == "es" or input_source_lang[0] == "fr":
+        elif (input_source_lang[0]) in self.spanish_langs:
             translation_en = translator.translate(text, lang_tgt="en", lang_src="es")
             translation_ar = translator.translate(text, lang_tgt="ar", lang_src="es")
             translation_message = translation_en + " " + translation_ar
