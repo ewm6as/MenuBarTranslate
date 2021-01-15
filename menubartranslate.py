@@ -1,10 +1,7 @@
 import rumps
 import clipboard
 from google_trans_new import google_translator
-"""
-To do:
-* Revise languages to include a list of all MESA/Romance languages
-"""
+
 translator = google_translator()
 
 
