@@ -24,7 +24,7 @@ class TranslateApp(object):
         self.app.menu = [self.translate_menu_button, self.clipboard_on_menu_button, self.clipboard_off_menu_button]
         self.old_clipboard = ''
         self.arabic_alphabet_langs = ['ar', 'fa', 'ps', 'ku', 'ur', 'sd', 'pa', 'so', 'ug', 'kk']
-        self.spanish_langs = ['es', 'eu', 'ca', 'pt']
+        self.spanish_langs = ['es', 'eu', 'ca', 'pt', 'fr']
     def run(self):
         self.app.run()
 
