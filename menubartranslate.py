@@ -18,16 +18,24 @@ class TranslateApp(object):
         self.text_window = rumps.Window(default_text="", ok='Translate')
         self.text_window.icon = "icon.icns"
         self.translate_menu_button = rumps.MenuItem(title="Translate", callback=self.text_callback)
+        self.history_menu_button = rumps.MenuItem(title="History", callback=self.history_callback)
         self.clipboard_on_menu_button = rumps.MenuItem(title="Clipboard Translate On", callback=self.clipboard_on_callback)
         self.clipboard_off_menu_button = rumps.MenuItem(title="Clipboard Translate Off", callback=self.clipboard_off_callback)
         self.clipboard_timer = rumps.Timer(self.on_tick, 0.5)
-        self.app.menu = [self.translate_menu_button, self.clipboard_on_menu_button, self.clipboard_off_menu_button]
+        self.app.menu = [self.translate_menu_button, self.clipboard_on_menu_button, self.clipboard_off_menu_button, self.history_menu_button]
         self.old_clipboard = ''
         self.arabic_alphabet_langs = ['ar', 'fa', 'ps', 'ku', 'ur', 'sd', 'pa', 'so', 'ug', 'kk']
+<<<<<<< Updated upstream
         self.spanish_langs = ['es', 'eu', 'ca', 'pt', 'fr']
+=======
+        self.spanish_langs = ['es', 'eu', 'ca', 'pt']
+        self.translation_history = []
+>>>>>>> Stashed changes
     def run(self):
         self.app.run()
-
+    def history_callback(self, sender):
+        self.translation_alert = rumps.alert(str(self.translation_history))
+        self.translation_alert()
     def clipboard_on_callback(self, sender):
         self.clipboard_timer.start()
 
@@ -61,6 +69,8 @@ class TranslateApp(object):
                 translation_es = translation_es[0]
             translation_ar = translator.translate(text, lang_tgt="ar", lang_src="en")
             translation_message = translation_es + " " + translation_ar
+        if translation_message not in self.translation_history:
+            self.translation_history.append(str(translation_message))
         return translation_message
 
     def text_callback(self, sender):
