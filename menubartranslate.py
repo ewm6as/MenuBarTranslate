@@ -28,10 +28,11 @@ class TranslateApp(object):
         self.spanish_langs = ['es', 'eu', 'ca', 'pt', 'fr']
         self.spanish_langs = ['es', 'eu', 'ca', 'pt']
         self.translation_history = []
+        self.translation_history_message = ""
     def run(self):
         self.app.run()
     def history_callback(self, sender):
-        self.translation_alert = rumps.alert(str(self.translation_history))
+        self.translation_alert = rumps.alert(str(self.translation_history_message))
         self.translation_alert()
     def clipboard_on_callback(self, sender):
         self.clipboard_timer.start()
@@ -66,8 +67,13 @@ class TranslateApp(object):
                 translation_es = translation_es[0]
             translation_ar = translator.translate(text, lang_tgt="ar", lang_src="en")
             translation_message = translation_es + " " + translation_ar
-        if translation_message not in self.translation_history:
+        if translation_message not in self.translation_history: #this is the translation history feature
             self.translation_history.append(str(translation_message))
+            print(len(self.translation_history))
+            if len(self.translation_history) == 10:
+                self.translation_history.pop(0)
+            self.translation_history_message = self.translation_history_message + \
+                                               self.translation_history[-1] + self.translation_history[-2] + "\n"
         return translation_message
 
     def text_callback(self, sender):
