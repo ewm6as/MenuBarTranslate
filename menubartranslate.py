@@ -73,7 +73,8 @@ class TranslateApp(object):
             if len(self.translation_history) == 10:
                 self.translation_history.pop(0)
             self.translation_history_message = self.translation_history_message + \
-                                               self.translation_history[-1] + self.translation_history[-2] + "\n"
+                                               self.translation_history[-1] + "\n"
+            print(self.translation_history_message)
         return translation_message
 
     def text_callback(self, sender):
