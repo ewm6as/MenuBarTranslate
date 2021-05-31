@@ -21,14 +21,16 @@ class TranslateApp(object):
         self.history_menu_button = rumps.MenuItem(title="History", callback=self.history_callback)
         self.clipboard_on_menu_button = rumps.MenuItem(title="Clipboard Translate On", callback=self.clipboard_on_callback)
         self.clipboard_off_menu_button = rumps.MenuItem(title="Clipboard Translate Off", callback=self.clipboard_off_callback)
+        self.debug_menu_button = rumps.MenuItem(title="Debug", callback=self.debug_callback)
         self.clipboard_timer = rumps.Timer(self.on_tick, 0.5)
-        self.app.menu = [self.translate_menu_button, self.clipboard_on_menu_button, self.clipboard_off_menu_button, self.history_menu_button]
+        self.app.menu = [self.translate_menu_button, self.clipboard_on_menu_button, self.clipboard_off_menu_button, self.history_menu_button, self.debug_menu_button]
         self.old_clipboard = ''
         self.arabic_alphabet_langs = ['ar', 'fa', 'ps', 'ku', 'ur', 'sd', 'pa', 'so', 'ug', 'kk']
         self.spanish_langs = ['es', 'eu', 'ca', 'pt', 'fr']
-        self.spanish_langs = ['es', 'eu', 'ca', 'pt']
+        #self.spanish_langs = ['es', 'eu', 'ca', 'pt']
         self.translation_history = []
         self.translation_history_message = ""
+        self.debug_message = ""
     def run(self):
         self.app.run()
     def history_callback(self, sender):
@@ -49,7 +51,9 @@ class TranslateApp(object):
 
     def translate_text(self, sender, text):
         # this one is slightly different for menu bar so it doesn't have the \n, maybe find a way to consolidate this
-        input_source_lang = translator.detect(text)
+        input_source_lang = translator.detect(text) #this is a list
+        #print("working fine")
+        self.debug_message = "The language detected was " + input_source_lang[1] + ' from the message "' + text + '"'
         print(input_source_lang[1])
         if (input_source_lang[0]) in self.arabic_alphabet_langs:
             translation_en = translator.translate(text, lang_tgt="en", lang_src="ar")
@@ -80,6 +84,7 @@ class TranslateApp(object):
     def text_callback(self, sender):
         self.request = str(self.text_window.run().text) #the run function returns the text and the button pressed
         input_source_lang = translator.detect(self.request)
+        self.debug_message = "The language detected was " + input_source_lang[1] + ' from the message "' + self.request + '"'
         if (input_source_lang[0]) in self.arabic_alphabet_langs:
             translation_en = translator.translate(self.request, lang_tgt="en", lang_src="ar")
             translation_es = translator.translate(self.request, lang_tgt="es", lang_src="ar")
@@ -100,7 +105,9 @@ class TranslateApp(object):
         self.translation_alert()
         return self.request
 
-
+    def debug_callback(self, sender):
+        self.debug_alert = rumps.alert(str(self.debug_message))
+        self.debug.alert()
 if __name__ == '__main__':
     app = TranslateApp()
     app.run()
